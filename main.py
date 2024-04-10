@@ -16,8 +16,8 @@ if os.path.exists("data.csv"):
 else:
   if input("No Data Found, Create Data File? [Y/N]: ").upper() == "Y":
     data = {    
-      "comp_points": [int(prompt("How many competitive points do you have? "))],
-      "comp_progress": [int(prompt("What is your current competitive progress? "))],
+      "comp_points": [int(input("How many competitive points do you have? "))],
+      "comp_progress": [int(input("What is your current competitive progress? "))],
     }
     dataframe = pandas.DataFrame(data)
     dataframe.to_csv("data.csv", index=False)
@@ -34,11 +34,18 @@ def save():
 data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
 print(data["comp_points"][1])
 
-# if no data 
+# if no data
 
 # add one game , update progress, update points
-
-# you are % closer 
+choice = ""
+print("points = x progress = y")
+while choice != "a":
+  choice = input("""What would you like to do? 
+  Add Game [A]
+  View Stats [V]
+  Update Manually [U]
+  """).upper()
+# you are % closer
 
 # you are % to jade
 
