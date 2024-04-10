@@ -1,20 +1,38 @@
 import os, csv, pandas
 
+# def new_data():
+#   data = {    
+#     "comp_points": [0],
+#     "comp_progress": [0],
+#   }
+
+def save():
+  dataframe = pandas.DataFrame(data)
+  dataframe.to_csv("data.csv", index=False)
+
 # DETECT SAVE DATA
 if os.path.exists("data.csv"):
   print("Data Found!")
 else:
   if input("No Data Found, Create Data File? [Y/N]: ").upper() == "Y":
-      new_data()
-      save()
+    data = {    
+      "comp_points": [0],
+      "comp_progress": [0],
+    }
+    dataframe = pandas.DataFrame(data)
+    dataframe.to_csv("data.csv", index=False)
   else:
     print("Okay bye.") 
     input("")
     exit
 
+def save():
+  dataframe = pandas.DataFrame(data)
+  dataframe.to_csv("data.csv", index=False)
+
 # read data
-data = pandas.read_csv("data.csv")
-print(data)
+data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
+print(data["comp_points"][1])
 
 # if no data 
 
@@ -29,13 +47,3 @@ print(data)
 # you need n more wins, each is %
 
 # delete data option
-
-def new_data():
-  data = {
-    "comp_progress": [0],
-    "comp_points": [0],
-  }
-
-def save():
-  dataframe = pandas.DataFrame(data)
-  dataframe.to_csv("data.csv", index=False)
