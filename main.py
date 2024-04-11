@@ -28,6 +28,7 @@ else:
 
 def save():
   dataframe = pandas.DataFrame(data)
+  os.remove("data.csv")
   dataframe.to_csv("data.csv", index=False)
 
 # read data
@@ -37,6 +38,8 @@ print(data["comp_points"][1])
 # if no data
 
 # add one game , update progress, update points
+print("DATA TYPE ", type(data["comp_points"][1]))
+
 choice = ""
 
 print("You have", data["comp_points"][1], "competitive points.")
@@ -53,12 +56,12 @@ while choice != "A":
 if choice == "A":
   choice = input("Win [W] or Loss [L]? ").upper()
   if choice == "W":
-    data["comp_points"][1] += 10
-    data["comp_progress"[1]] += 3
+    data["comp_points"][1] = int(data["comp_points"][1]) + 10
+    data["comp_progress"][1] = int(data["comp_points"][1]) + 3
   elif choice == "L":
-    data["comp_progress"][1] += 1
+    data["comp_progress"][1] = int(data["comp_progress"][1]) + 1
 
-  if data["comp_progress"][1] >= 30:
+  if int(data["comp_progress"][1]) >= 30:
     data["comp_progress"][1] -= 30
     data["comp_points"][1] += 100
   save()
