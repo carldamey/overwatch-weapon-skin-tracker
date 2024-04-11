@@ -38,13 +38,33 @@ print(data["comp_points"][1])
 
 # add one game , update progress, update points
 choice = ""
-print("points = x progress = y")
-while choice != "a":
+
+print("You have", data["comp_points"][1], "competitive points.")
+print("You have", data["comp_progress"][1], "/ 30 competitive progress.")
+print(f"data - {data}")
+
+while choice != "A":
   choice = input("""What would you like to do? 
   Add Game [A]
   View Stats [V]
   Update Manually [U]
   """).upper()
+
+if choice == "A":
+  choice = input("Win [W] or Loss [L]? ").upper()
+  if choice == "W":
+    data["comp_points"][1] += 10
+    data["comp_progress"[1]] += 3
+  elif choice == "L":
+    data["comp_progress"][1] += 1
+
+  if data["comp_progress"][1] >= 30:
+    data["comp_progress"][1] -= 30
+    data["comp_points"][1] += 100
+  save()
+  choice = ""
+
+
 # you are % closer
 
 # you are % to jade
