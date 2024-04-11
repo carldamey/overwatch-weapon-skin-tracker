@@ -35,23 +35,6 @@
 # data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
 # print(data["comp_points"][1])
 
-# # if no data
-
-# # add one game , update progress, update points
-# print("DATA TYPE ", type(data["comp_points"][1]))
-
-# choice = ""
-
-# print("You have", data["comp_points"][1], "competitive points.")
-# print("You have", data["comp_progress"][1], "/ 30 competitive progress.")
-# print(f"data - {data}")
-
-# while choice != "A":
-#   choice = input("""What would you like to do? 
-#   Add Game [A]
-#   View Stats [V]
-#   Update Manually [U]
-#   """).upper()
 
 # if choice == "A":
 #   choice = input("Win [W] or Loss [L]? ").upper()
@@ -78,17 +61,26 @@
 
 # delete data option
 
+import csv, os, pandas
 
-# if there is no file named data.csv
-  # ask to create it
-    # if yes do it
-    # if no quit
+comp_points = 0
+comp_progress = 0
 
-# load data.csv as a variable
+if os.path.exists("data.csv"):
+  
+  print("Data Found")
+  data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
 
-# create variables comp_points and comp_progress as integers of the csv variables
 
-# prompt a v u
+elif not os.path.exists("data.csv"):
+  print("No data found, creating data file.")
+  comp_points = int(input("How many competitive points do you have?\n"))
+  comp_progress = int(input("What is your current competitive progress / 30?\n"))
+
+comp_points = int(data["comp_points"][1])
+comp_progress = int(data["comp_progress"][1])
+print("Data Loaded")
+
 
 primary_choice = ""
 comp_points = 0
@@ -98,32 +90,34 @@ while True:
 
   print(f"You have {comp_points} Points and {comp_progress} / 30 Progress.")
   primary_choice = input("What would you like to do? \n Add Game [A] \n View Stats [V] \n Update Stats Manually [U] \n").upper()
-
   match primary_choice:
+
     # ADD GAME RESULT
     case "A":
       print("Add Game")
-      win_loss_choice = input("Win [W] or Loss [L]").upper() == "W"
+      win_loss_choice = input("Win [W] or Loss [L]").upper()
       match win_loss_choice:
+
         # GAME WON
         case "W":
           comp_points += 10
           comp_progress += 3
           print("Win logged!")
 
-          # GAME LOST
+        # GAME LOST
         case "L":
           comp_progress += 1
-          print("Loss logged :(")
+          print("Loss logged. :(")
 
-          # INVALID WIN/LOSS SELECTION
+        # INVALID WIN/LOSS SELECTION
         case _:
           print("Invalid selection.")
-          if comp_progress >= 30:
-            comp_progress -= 30
-            comp_points += 100
-          win_loss_choice = ""
-          primary_choice = ""
+
+      if comp_progress >= 30:
+        comp_progress -= 30
+        comp_points += 100
+      win_loss_choice = ""
+      primary_choice = ""
 
     case "V":
       print("View Stats")
