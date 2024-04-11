@@ -67,24 +67,19 @@ comp_points = 0
 comp_progress = 0
 
 if os.path.exists("data.csv"):
-  
   print("Data Found")
   data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
 
-
 elif not os.path.exists("data.csv"):
   print("No data found, creating data file.")
-  comp_points = int(input("How many competitive points do you have?\n"))
-  comp_progress = int(input("What is your current competitive progress / 30?\n"))
+  data_dict = {
+    comp_points: int(input("How many competitive points do you have?\n")),
+    comp_progress: int(input("What is your current competitive progress / 30?\n")),
+  }
 
 comp_points = int(data["comp_points"][1])
 comp_progress = int(data["comp_progress"][1])
 print("Data Loaded")
-
-
-primary_choice = ""
-comp_points = 0
-comp_progress = 0
 
 while True:
 
@@ -123,7 +118,7 @@ while True:
       print("View Stats")
 
     case "U":
-      print("Manually Update")
+      print("Manually Update Stats")
 
     case _:
       print("huh")
