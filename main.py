@@ -77,11 +77,10 @@ def load():
   csv_data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
   comp_points = int(csv_data["comp_points"][1])
   comp_progress = int(csv_data["comp_progress"][1])
-  print("Data loaded.")
-  return (
-    comp_points,
-    comp_progress,
-  )
+  return {
+    "comp_points": comp_points,
+    "comp_progress": comp_progress,
+  }
   
 if os.path.exists("data.csv"):
   print("Data Found")
@@ -94,38 +93,39 @@ elif not os.path.exists("data.csv"):
 
 
 data = load()
+print("Data loaded.", print(data))
 
 while True:
   load()
   print("comp points", comp_points)
-  print(f"You have {data[comp_points]} Points and {data[comp_progress]} / 30 Progress.")
+  print(f"You have {data['comp_points']} Points and {data['comp_progress']} / 30 Progress.")
   primary_choice = input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper()
   match primary_choice:
 
     # ADD GAME RESULT
     case "A":
       print("Add Game")
-      win_loss_choice = input("Win [W] or Loss [L]").upper()
+      win_loss_choice = input("Win [W] or Loss [L]?\n").upper()
       match win_loss_choice:
 
         # GAME WON
         case "W":
-          comp_points += 10
-          comp_progress += 3
+          data["comp_points"] += 10
+          data["comp_progress"] += 3
           print("Win logged!")
 
         # GAME LOST
         case "L":
-          comp_progress += 1
+          data["comp_progress"] += 1
           print("Loss logged. :(")
 
         # INVALID WIN/LOSS SELECTION
         case _:
           print("Invalid selection.")
 
-      if comp_progress >= 30:
-        comp_progress -= 30
-        comp_points += 100
+      if data["comp_progress"] >= 30:
+        data["comp_progress"] -= 30
+        data["comp_points"] += 100
       win_loss_choice = ""
       primary_choice = ""
 
