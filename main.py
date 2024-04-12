@@ -63,13 +63,15 @@
 
 import csv, os, pandas
 
-comp_points = 0
-comp_progress = 0
+# comp_points = 0
+# comp_progress = 0
+data = {}
 
 def save():
+  print("save called")
   dataframe = pandas.DataFrame({
-    "comp_points": [comp_points],
-    "comp_progress": [comp_progress],
+    "comp_points": [data["comp_points"]],
+    "comp_progress": [data["comp_progress"]],
   })
   dataframe.to_csv("data.csv", index=False)
 
@@ -87,8 +89,8 @@ if os.path.exists("data.csv"):
 
 elif not os.path.exists("data.csv"):
   print("No data found, creating data file.")
-  comp_points = input("How many competitive points do you have?\n")
-  comp_progress = input("What is your current competitive progress / 30?\n")
+  data["comp_points"] = input("How many competitive points do you have?\n")
+  data["comp_progress"] = input("What is your current competitive progress / 30?\n")
   save()
 
 
@@ -97,7 +99,6 @@ print("Data loaded.", print(data))
 
 while True:
   load()
-  print("comp points", comp_points)
   print(f"You have {data['comp_points']} Points and {data['comp_progress']} / 30 Progress.")
   primary_choice = input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper()
   match primary_choice:
@@ -140,4 +141,6 @@ while True:
       break
 
     case _:
-      print("huh")
+      print("Invalid selection.")
+      
+  save()
