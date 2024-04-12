@@ -66,25 +66,38 @@ import csv, os, pandas
 comp_points = 0
 comp_progress = 0
 
+def save():
+  dataframe = pandas.DataFrame(
+    {
+    comp_points,
+    comp_progress
+  }
+  )
+  dataframe.to_csv("data.csv")
+
+def load():
+  data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
+  comp_points = int(data["comp_points"][1])
+  comp_progress = int(data["comp_progress"][1])
+  
+
+
 if os.path.exists("data.csv"):
   print("Data Found")
-  data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
 
 elif not os.path.exists("data.csv"):
   print("No data found, creating data file.")
-  data_dict = {
-    comp_points: int(input("How many competitive points do you have?\n")),
-    comp_progress: int(input("What is your current competitive progress / 30?\n")),
-  }
+  comp_points: int(input("How many competitive points do you have?\n"))
+  comp_progress: int(input("What is your current competitive progress / 30?\n"))
+  save()
 
-comp_points = int(data["comp_points"][1])
-comp_progress = int(data["comp_progress"][1])
+
 print("Data Loaded")
 
 while True:
 
   print(f"You have {comp_points} Points and {comp_progress} / 30 Progress.")
-  primary_choice = input("What would you like to do? \n Add Game [A] \n View Stats [V] \n Update Stats Manually [U] \n").upper()
+  primary_choice = input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper()
   match primary_choice:
 
     # ADD GAME RESULT
@@ -119,6 +132,10 @@ while True:
 
     case "U":
       print("Manually Update Stats")
+
+    case "X":
+      print("Exit Program")
+      break
 
     case _:
       print("huh")
