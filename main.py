@@ -67,35 +67,33 @@ comp_points = 0
 comp_progress = 0
 
 def save():
-  dataframe = pandas.DataFrame(
-    {
-    comp_points,
-    comp_progress
-  }
-  )
-  dataframe.to_csv("data.csv")
+  dataframe = pandas.DataFrame({
+    "comp_points": [comp_points],
+    "comp_progress": [comp_progress],
+  })
+  dataframe.to_csv("data.csv", index=False)
 
 def load():
-  data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
-  comp_points = int(data["comp_points"][1])
-  comp_progress = int(data["comp_progress"][1])
+  csv_data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
+  comp_points = int(csv_data["comp_points"][1])
+  comp_progress = int(csv_data["comp_progress"][1])
+  print("SADHKJASDHKJSDHKJASDH", comp_points, comp_progress)
+  print("Data loaded.")
   
-
-
 if os.path.exists("data.csv"):
   print("Data Found")
 
 elif not os.path.exists("data.csv"):
   print("No data found, creating data file.")
-  comp_points: int(input("How many competitive points do you have?\n"))
-  comp_progress: int(input("What is your current competitive progress / 30?\n"))
+  comp_points = input("How many competitive points do you have?\n")
+  comp_progress = input("What is your current competitive progress / 30?\n")
   save()
 
 
-print("Data Loaded")
+load()
 
 while True:
-
+  load()
   print(f"You have {comp_points} Points and {comp_progress} / 30 Progress.")
   primary_choice = input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper()
   match primary_choice:
