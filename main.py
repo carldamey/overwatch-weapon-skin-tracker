@@ -77,8 +77,11 @@ def load():
   csv_data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
   comp_points = int(csv_data["comp_points"][1])
   comp_progress = int(csv_data["comp_progress"][1])
-  print("SADHKJASDHKJSDHKJASDH", comp_points, comp_progress)
   print("Data loaded.")
+  return (
+    comp_points,
+    comp_progress,
+  )
   
 if os.path.exists("data.csv"):
   print("Data Found")
@@ -90,11 +93,12 @@ elif not os.path.exists("data.csv"):
   save()
 
 
-load()
+data = load()
 
 while True:
   load()
-  print(f"You have {comp_points} Points and {comp_progress} / 30 Progress.")
+  print("comp points", comp_points)
+  print(f"You have {data[comp_points]} Points and {data[comp_progress]} / 30 Progress.")
   primary_choice = input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper()
   match primary_choice:
 
