@@ -118,7 +118,7 @@ while True:
           print("Loss logged. :(")
 
         # CANCELLED
-        case "C":
+        case "X":
           print("Canceled")
 
         # INVALID WIN/LOSS SELECTION
@@ -128,8 +128,6 @@ while True:
       if data["comp_progress"] >= 30:
         data["comp_progress"] -= 30
         data["comp_points"] += 100
-      win_loss_choice = ""
-      primary_choice = ""
 
     case "V":
       print("View Stats")
@@ -139,6 +137,7 @@ while True:
 
     case "U":
       print("Manually Update Stats")
+      manual_update_choice = ""
       
 
     case "X":
