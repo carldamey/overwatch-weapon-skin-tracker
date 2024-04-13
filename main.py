@@ -61,14 +61,13 @@
 
 # delete data option
 
-import csv, os, pandas
+import csv, math, os, pandas
 
 # comp_points = 0
 # comp_progress = 0
 data = {}
 
 def save():
-  print("save called")
   dataframe = pandas.DataFrame({
     "comp_points": [data["comp_points"]],
     "comp_progress": [data["comp_progress"]],
@@ -77,11 +76,9 @@ def save():
 
 def load():
   csv_data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
-  comp_points = int(csv_data["comp_points"][1])
-  comp_progress = int(csv_data["comp_progress"][1])
   return {
-    "comp_points": comp_points,
-    "comp_progress": comp_progress,
+    "comp_points": int(csv_data["comp_points"][1]),
+    "comp_progress": int(csv_data["comp_progress"][1]),
   }
   
 if os.path.exists("data.csv"):
@@ -106,7 +103,7 @@ while True:
     # ADD GAME RESULT
     case "A":
       print("Add Game")
-      win_loss_choice = input("Win [W] or Loss [L]?\n").upper()
+      win_loss_choice = input("Win [W] Loss [L] or Cancel [X]?\n").upper()
       match win_loss_choice:
 
         # GAME WON
@@ -120,8 +117,12 @@ while True:
           data["comp_progress"] += 1
           print("Loss logged. :(")
 
+        # CANCELLED
+        case "C":
+          print("Canceled")
+
         # INVALID WIN/LOSS SELECTION
-        case _:
+        case _,:
           print("Invalid selection.")
 
       if data["comp_progress"] >= 30:
@@ -133,8 +134,12 @@ while True:
     case "V":
       print("View Stats")
 
+      print(f"With a 50% win rate, you need to play {math.ceil((3000 - data['comp_points']) / 11.665)} more games.")
+      #TODO MAKE THIS MORE ACCURATE BY CALCULATING EXACT PROGRESS
+
     case "U":
       print("Manually Update Stats")
+      
 
     case "X":
       print("Exit Program")
@@ -142,5 +147,9 @@ while True:
 
     case _:
       print("Invalid selection.")
-      
+
+  if data["comp_points"] >= 3000:
+    input("Congrats, you now have enough Competitive Points to Purchase your skin! Please make your purchase and then press [ENTER]")
+    data["comp_points"] -= 3000
+
   save()
