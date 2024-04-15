@@ -1,15 +1,6 @@
-# you are % closer
-
-# you are % to jade
-
-# you need n more wins, each is %
-
 import csv, math, os, pandas, random
-
 data = {}
 running = True
-
-# TODO create fallback if non-numbers are entered, or other invalid selections
 
 def save():
   dataframe = pandas.DataFrame({
@@ -71,29 +62,27 @@ while running:
           data["comp_progress"] += 1
           print("Loss logged. :(")
 
-        # CANCELLED
+        # CANCELED
         case "X":
           print("Canceled.")
 
         # INVALID WIN/LOSS SELECTION
         case _:
           print("Invalid selection.")
-
+        
+      # REWARD & RESET PROGRESS WHEN >= 30
       if data["comp_progress"] >= 30:
         data["comp_progress"] -= 30
         data["comp_points"] += 100
 
     case "V":
       print("View Stats")
-
       stats_choice = input("[G] Caclulate remaining games\n").upper()
       match stats_choice:
 
         # CALCULATE REMAINING GAMES
         case "G":
           calculate_games_left(int(input("What % is your winrate?\n")))
-
-      # TODO MAKE THIS MORE ACCURATE BY CALCULATING EXACT PROGRESS
 
     case "U":
       print("Manually Update Stats")
@@ -104,7 +93,7 @@ while running:
         case "G":
           data["comp_progress"] = int(input("How much Competitive Progress / 30 do you have?\n"))
         case "X":
-          print("Cancelled.")
+          print("Canceled.")
         case _:
           print("Invalid selection.")
 
@@ -120,3 +109,5 @@ while running:
     data["comp_points"] -= 3000
 
   save()
+
+  # TODO create fallback if non-numbers are entered, or other invalid selections
