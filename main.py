@@ -2,7 +2,6 @@
 
 # you are % to jade
 
-
 # you need n more wins, each is %
 
 import csv, math, os, pandas, random
@@ -10,7 +9,6 @@ import csv, math, os, pandas, random
 data = {}
 running = True
 
-# TODO see if data = {} can be removed by making a fallback in the save function
 # TODO create fallback if non-numbers are entered, or other invalid selections
 
 def save():
@@ -48,16 +46,10 @@ def calculate_games_left(winrate = 50):
       points_needed -= 100
       calculating_progress -= 30
     games_needed += 1
-  print(f"With a {winrate}% winrate, you will need to play approximately {games_needed} more games.")
-
-  
-
-
-data = load()
-print("Data loaded.", print(data))
+  input(f"With a {winrate}% winrate, you will need to play approximately {games_needed} more games, each win bringing you {round((100 / games_needed), 1)}% closer.")
 
 while running:
-  load()
+  data = load()
   print(f"You have {data['comp_points']} Points and {data['comp_progress']} / 30 Progress.")
   primary_choice = input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper()
   match primary_choice:
