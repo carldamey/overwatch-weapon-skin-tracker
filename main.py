@@ -2,11 +2,8 @@
 
 # you are % to jade
 
-# each game is % with n winrate (default 50)
 
 # you need n more wins, each is %
-
-# delete data option
 
 import csv, math, os, pandas, random
 
@@ -24,6 +21,13 @@ def save():
   dataframe.to_csv("data.csv", index=False)
 
 def load():
+  if os.path.exists("data.csv"):
+    print("Data Found")
+  elif not os.path.exists("data.csv"):
+    print("No data found, creating data file.")
+    data["comp_points"] = input("How many competitive points do you have?\n")
+    data["comp_progress"] = input("What is your current competitive progress / 30?\n")
+    save()
   csv_data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
   return {
     "comp_points": int(csv_data["comp_points"][1]),
@@ -47,13 +51,7 @@ def calculate_games_left(winrate = 50):
   print(f"With a {winrate}% winrate, you will need to play approximately {games_needed} more games.")
 
   
-if os.path.exists("data.csv"):
-  print("Data Found")
-elif not os.path.exists("data.csv"):
-  print("No data found, creating data file.")
-  data["comp_points"] = input("How many competitive points do you have?\n")
-  data["comp_progress"] = input("What is your current competitive progress / 30?\n")
-  save()
+
 
 data = load()
 print("Data loaded.", print(data))
