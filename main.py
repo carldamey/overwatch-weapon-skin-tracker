@@ -47,7 +47,16 @@ def calculate_games_left(winrate = 50):
     games_needed += 1
   input(f"With a {winrate}% winrate, you will need to play approximately {games_needed} more games, each win bringing you {round((100 / games_needed), 1)}% closer.")
 
+def cls():
+  # WINDOWS
+  if os.name == "nt":
+    os.system("cls")
+  # LINUX / OSX
+  else:
+    os.system("clear")
+
 while running:
+  cls()
   data = load()
   # COMP POINT COUNT MET
   while data["comp_points"] >= 3000:
