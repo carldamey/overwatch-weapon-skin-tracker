@@ -68,15 +68,14 @@ while running:
     data["comp_points"] -= 3000
 
   print(f"You have {data['comp_points']} Points and {data['comp_progress']} / 30 Progress.")
-  primary_choice = input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper()
-  match primary_choice:
+  print(os.getcwd())
+  match input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper():
 
     # ADD GAME RESULT
     case "A":
       cls()
       print("Add Game")
-      win_loss_choice = input("[W] Win\n[L] Loss\n[X] Cancel\n").upper()
-      match win_loss_choice:
+      match input("[W] Win\n[L] Loss\n[X] Cancel\n").upper():
 
         # GAME WON
         case "W":
@@ -91,7 +90,7 @@ while running:
           data["comp_progress"] += 1
           input("Loss logged.")
 
-        # CANCELED
+        # CANCEL ADD GAME SELECTION
         case "X":
           cls()
           input("Canceled.")
@@ -110,9 +109,7 @@ while running:
     case "V":
       cls()
       print("View Stats")
-      stats_choice = input("[G] Caclulate remaining games\n[X] Cancel\n").upper()
-      cls()
-      match stats_choice:
+      match input("[G] Caclulate remaining games\n[X] Cancel\n").upper():
 
         # CALCULATE REMAINING GAMES
         case "G":
@@ -122,15 +119,15 @@ while running:
             winrate = input("What % is your winrate?\n")
           calculate_games_left(int(winrate))
 
-        # CANCEL
+        # CANCEL STATS SELECTION
         case "X":
           cls()
-          input("Canceled")
+          input("Canceled.")
 
-        # INVALID SELECTION
+        # INVALID STATS SELECTION
         case _:
           cls()
-          input("Invalid Selection")
+          input("Invalid Selection.")
 
     # UPDATE STATS
     case "U":
@@ -144,13 +141,11 @@ while running:
       print("Goodbye.")
       running = False
 
-    # INVALID SELECTION
+    # INVALID MAIN SCREEN SELECTION
     case _:
       cls()
 
-
-
   save(data)
 
-  # TODO ADD SCREEN CLEARING
   # TODO ADD RELATIVE DATA PATHING
+  # TODO MAKE FILE EXECUTABLE
