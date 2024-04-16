@@ -2,8 +2,7 @@ import csv, math, os, pandas, random
 data = {}
 running = True
 
-def save():
-  print("DATAafjldshfkjsldfhkjsfh", data)
+def save(data):
   dataframe = pandas.DataFrame({
     "comp_points": [data["comp_points"]],
     "comp_progress": [data["comp_progress"]],
@@ -17,8 +16,10 @@ def new_data():
   }
   while not input_data["comp_points"].isdigit():
     input_data["comp_points"] = input("How many competitive points do you have?\n")
+  input_data["comp_points"] = int(input_data["comp_points"])
   while not input_data["comp_progress"].isdigit():
     input_data["comp_progress"] = input("What is your current competitive progress / 30?\n")
+  input_data["comp_progress"] = int(input_data["comp_progress"])
   return input_data
 
 def load():
@@ -27,8 +28,7 @@ def load():
   elif not os.path.exists("data.csv"):
     print("No data found, creating data file.")
     data = new_data()
-    print("DATAAJDKLSDJLASJD", data)
-    save()
+    save(data)
   csv_data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
   return {
     "comp_points": int(csv_data["comp_points"][1]),
@@ -122,7 +122,7 @@ while running:
     input("Congrats, you now have enough Competitive Points to Purchase your weapon skin! Please make your purchase and then press [ENTER]")
     data["comp_points"] -= 3000
 
-  save()
+  save(data)
 
   # TODO create fallback if non-numbers are entered, or other invalid selections
   # TODO ADD SCREEN CLEARING
