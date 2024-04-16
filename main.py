@@ -1,4 +1,6 @@
-import csv, math, os, pandas, random
+import csv, inspect, math, os, pandas, random
+
+current_directory = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) 
 data = {}
 running = True
 
@@ -62,13 +64,17 @@ def calculate_games_left(winrate = 50):
 while running:
   cls()
   data = load()
+
   # COMP POINT COUNT MET
   while data["comp_points"] >= 3000:
     input(f"Congrats, you have {data['comp_points']} Competitive Points, enough to Purchase your weapon skin! Please make your purchase and then press [ENTER]")
     data["comp_points"] -= 3000
 
   print(f"You have {data['comp_points']} Points and {data['comp_progress']} / 30 Progress.")
-  print(os.getcwd())
+
+  # print((f"{current_directory}/data.csv"))
+  # print((os._exists(current_directory)))
+
   match input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper():
 
     # ADD GAME RESULT
