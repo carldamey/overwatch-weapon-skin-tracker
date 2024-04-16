@@ -58,7 +58,7 @@ def calculate_games_left(winrate = 50):
       points_needed -= 100
       calculating_progress -= 30
     games_needed += 1
-  input(f"With a {winrate}% winrate, you will need to play approximately {games_needed} more games, each win bringing you {round((100 / games_needed), 1)}% closer.")
+  input(f"With a {winrate}% winrate, you will need to play approximately {games_needed} more games,\neach win bringing you {round((100 / games_needed), 1)}% closer.")
 
 
 while running:
@@ -67,8 +67,9 @@ while running:
 
   # COMP POINT COUNT MET
   while data["comp_points"] >= 3000:
-    input(f"Congrats, you have {data['comp_points']} Competitive Points, enough to Purchase your weapon skin! Please make your purchase and then press [ENTER]")
+    input(f"Congrats, you have {data['comp_points']} Competitive Points, enough to Purchase your weapon skin!\nPlease make your purchase and then press [ENTER]")
     data["comp_points"] -= 3000
+    cls()
 
   print(f"You have {data['comp_points']} Points and {data['comp_progress']} / 30 Progress.")
 
