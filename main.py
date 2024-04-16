@@ -2,6 +2,14 @@ import csv, math, os, pandas, random
 data = {}
 running = True
 
+def cls():
+  # WINDOWS
+  if os.name == "nt":
+    os.system("cls")
+  # LINUX / OSX
+  else:
+    os.system("clear")
+
 def save(data):
   dataframe = pandas.DataFrame({
     "comp_points": [int(data["comp_points"])],
@@ -15,14 +23,17 @@ def new_data():
     "comp_progress": "",
   }
   while not input_data["comp_points"].isdigit():
+    cls()
     input_data["comp_points"] = input("How many competitive points do you have?\n")
   while not input_data["comp_progress"].isdigit():
+    cls()
     input_data["comp_progress"] = input("What is your current competitive progress / 30?\n")
+    cls()
   return input_data
 
 def load():
   if not os.path.exists("data.csv"):
-    print("No data found, creating data file.")
+    print("No data found, creating data file.\n")
     data = new_data()
     save(data)
   csv_data = pandas.read_csv("data.csv", names=["comp_points", "comp_progress"])
@@ -47,13 +58,6 @@ def calculate_games_left(winrate = 50):
     games_needed += 1
   input(f"With a {winrate}% winrate, you will need to play approximately {games_needed} more games, each win bringing you {round((100 / games_needed), 1)}% closer.")
 
-def cls():
-  # WINDOWS
-  if os.name == "nt":
-    os.system("cls")
-  # LINUX / OSX
-  else:
-    os.system("clear")
 
 while running:
   cls()
@@ -69,28 +73,33 @@ while running:
 
     # ADD GAME RESULT
     case "A":
+      cls()
       print("Add Game")
       win_loss_choice = input("[W] Win\n[L] Loss\n[X] Cancel\n").upper()
       match win_loss_choice:
 
         # GAME WON
         case "W":
+          cls()
           data["comp_points"] += 10
           data["comp_progress"] += 3
-          print("Win logged!")
+          input("Win logged!")
 
         # GAME LOST
         case "L":
+          cls()
           data["comp_progress"] += 1
-          print("Loss logged. :(")
+          input("Loss logged.")
 
         # CANCELED
         case "X":
-          print("Canceled.")
+          cls()
+          input("Canceled.")
 
         # INVALID WIN/LOSS SELECTION
         case _:
-          print("Invalid selection.")
+          cls()
+          input("Invalid selection.")
         
       # REWARD & RESET PROGRESS WHEN >= 30
       if data["comp_progress"] >= 30:
@@ -99,33 +108,49 @@ while running:
 
     # VIEW STATS
     case "V":
+      cls()
       print("View Stats")
-      stats_choice = input("[G] Caclulate remaining games\n").upper()
+      stats_choice = input("[G] Caclulate remaining games\n[X] Cancel\n").upper()
+      cls()
       match stats_choice:
 
         # CALCULATE REMAINING GAMES
         case "G":
+          cls()
           winrate = ""
           while not winrate.isdigit():
             winrate = input("What % is your winrate?\n")
           calculate_games_left(int(winrate))
 
+        # CANCEL
+        case "X":
+          cls()
+          input("Canceled")
+
+        # INVALID SELECTION
+        case _:
+          cls()
+          input("Invalid Selection")
+
     # UPDATE STATS
     case "U":
+      cls()
       print("Manually Update Stats")
       data = new_data()
 
     # EXIT PROGRAM
     case "X":
-      print("Exit Program")
+      cls()
+      print("Goodbye.")
       running = False
 
     # INVALID SELECTION
     case _:
-      print("Invalid selection.")
+      cls()
 
 
 
   save(data)
 
   # TODO ADD SCREEN CLEARING
+  # TODO ADD RELATIVE DATA PATHING
