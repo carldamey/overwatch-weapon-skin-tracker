@@ -62,7 +62,6 @@ def calculate_games_left(winrate):
       games_needed += 1
     sim_results.append(games_needed)
   avg_games_remaining = math.ceil(statistics.mean(sim_results))
-  print(avg_games_remaining)
   input(f"With a {winrate}% winrate, you will need to play approximately {avg_games_remaining} more games,\neach win bringing you {round((100 / avg_games_remaining), 1)}% closer.")
 
 
