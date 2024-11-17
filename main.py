@@ -1,4 +1,4 @@
-import csv, inspect, math, os, pandas, random
+import csv, inspect, math, os, pandas, random, statistics
 
 current_directory = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) 
 data = {}
@@ -44,21 +44,26 @@ def load():
     "comp_progress": int(csv_data["comp_progress"][1]),
   }
 
-def calculate_games_left(winrate = 50):
-  games_needed = 0
-  points_needed = 3000 - data["comp_points"]
-  calculating_progress = data["comp_progress"]
-  while points_needed > 0:
-    if winrate > random.randint(1, 100):
-      points_needed -= 10
-      calculating_progress += 3
-    else:
-      calculating_progress += 1
-    if calculating_progress >= 30:
-      points_needed -= 100
-      calculating_progress -= 30
-    games_needed += 1
-  input(f"With a {winrate}% winrate, you will need to play approximately {games_needed} more games,\neach win bringing you {round((100 / games_needed), 1)}% closer.")
+def calculate_games_left(winrate):
+  sim_results = []
+  for n in range(0, 100):
+    games_needed = 0
+    points_needed = 3000 - data["comp_points"]
+    calculating_progress = data["comp_progress"]
+    while points_needed > 0:
+      if winrate > random.randint(1, 100):
+        points_needed -= 10
+        calculating_progress += 3
+      else:
+        calculating_progress += 1
+      if calculating_progress >= 30:
+        points_needed -= 100
+        calculating_progress -= 30
+      games_needed += 1
+    sim_results.append(games_needed)
+  avg_games_remaining = math.ceil(statistics.mean(sim_results))
+  print(avg_games_remaining)
+  input(f"With a {winrate}% winrate, you will need to play approximately {avg_games_remaining} more games,\neach win bringing you {round((100 / avg_games_remaining), 1)}% closer.")
 
 
 while running:
@@ -123,6 +128,7 @@ while running:
           cls()
           winrate = ""
           while not winrate.isdigit():
+            cls()
             winrate = input("What % is your winrate?\n")
           calculate_games_left(int(winrate))
 
