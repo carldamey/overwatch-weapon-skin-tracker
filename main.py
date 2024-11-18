@@ -77,9 +77,6 @@ while running:
 
   print(f"You have {data['comp_points']} Points and {data['comp_progress']} / 30 Progress.")
 
-  # print((f"{current_directory}/data.csv"))
-  # print((os._exists(current_directory)))
-
   match input("What would you like to do?\n[A] Add Game\n[V] View Stats\n[U] Update Stats Manually\n[X] Exit Program\n").upper():
 
     # ADD GAME RESULT
