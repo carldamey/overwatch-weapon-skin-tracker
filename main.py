@@ -46,7 +46,7 @@ def load():
 
 def calculate_games_left(winrate):
   sim_results = []
-  for n in range(0, 100):
+  for _ in range(0, 100):
     games_needed = 0
     points_needed = 3000 - data["comp_points"]
     calculating_progress = data["comp_progress"]
