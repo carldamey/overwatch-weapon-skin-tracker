@@ -98,6 +98,7 @@ while running:
           data["comp_progress"] += 1
           input("Loss logged.")
 
+        # DRAWN GAME
         case "D":
           cls()
           data["comp_points"] += 5
