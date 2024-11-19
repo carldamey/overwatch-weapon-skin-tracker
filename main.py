@@ -83,7 +83,7 @@ while running:
     case "A":
       cls()
       print("Add Game")
-      match input("[W] Win\n[L] Loss\n[X] Cancel\n").upper():
+      match input("[W] Win\n[L] Loss\n[D] Draw\n[X] Cancel\n").upper():
 
         # GAME WON
         case "W":
@@ -97,6 +97,12 @@ while running:
           cls()
           data["comp_progress"] += 1
           input("Loss logged.")
+
+        case "D":
+          cls()
+          data["comp_points"] += 5
+          data["comp_progress"] += 1
+          input("Draw logged.")
 
         # CANCEL ADD GAME SELECTION
         case "X":
